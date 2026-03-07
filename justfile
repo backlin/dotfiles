@@ -1,22 +1,29 @@
-link:
-    #!/usr/bin/env bash
+repo := justfile_directory()
+env_file := if os() == "macos" { ".mac_env" } else { ".linux_env" }
 
-    ln .bash_aliases ~/.bash_aliases
-    if [[ $(uname) == Darwin ]]; then
-      ln .mac_env ~/.mac_env
-    fi
-    if [[ $(uname) == Linux ]]; then
-      ln .linux_env ~/.linux_env
-    fi
-    ln .psqlrc ~/.psqlrc
-    ln .tmux.conf ~/.tmux.conf
-    ln .gitconfig ~/.gitconfig
-    ln .vimrc ~/.vimrc
-    ln .zshrc ~/.zshrc
+link:
+    ln -sf {{repo}}/.bash_aliases ~/.bash_aliases
+    ln -sf {{repo}}/{{env_file}} ~/{{env_file}}
+    ln -sf {{repo}}/.psqlrc ~/.psqlrc
+    ln -sf {{repo}}/.tmux.conf ~/.tmux.conf
+    ln -sf {{repo}}/.gitconfig ~/.gitconfig
+    ln -sf {{repo}}/.vimrc ~/.vimrc
+    ln -sf {{repo}}/.zshrc ~/.zshrc
     mkdir -p ~/.config/qmk
-    ln qmk.ini ~/.config/qmk/qmk.ini
+    ln -sf {{repo}}/qmk.ini ~/.config/qmk/qmk.ini
     mkdir -p ~/.config/zellij
-    ln zellij.config.kdl ~/.config/zellij/config.kdl
+    ln -sf {{repo}}/zellij.config.kdl ~/.config/zellij/config.kdl
+
+diff:
+    difft ~/.bash_aliases {{repo}}/.bash_aliases
+    difft ~/{{env_file}} {{repo}}/{{env_file}}
+    difft ~/.psqlrc {{repo}}/.psqlrc
+    difft ~/.tmux.conf {{repo}}/.tmux.conf
+    difft ~/.gitconfig {{repo}}/.gitconfig
+    difft ~/.vimrc {{repo}}/.vimrc
+    difft ~/.zshrc {{repo}}/.zshrc
+    difft ~/.config/qmk/qmk.ini {{repo}}/qmk.ini
+    difft ~/.config/zellij/config.kdl {{repo}}/zellij.config.kdl
 
 unlink:
     rm -f ~/.bash_aliases
