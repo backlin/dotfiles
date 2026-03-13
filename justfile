@@ -15,17 +15,20 @@ link:
     ln -sf {{repo}}/zellij.config.kdl ~/.config/zellij/config.kdl
 
 diff:
-    difft ~/.bash_aliases {{repo}}/.bash_aliases
-    difft ~/{{env_file}} {{repo}}/{{env_file}}
-    difft ~/.psqlrc {{repo}}/.psqlrc
-    difft ~/.tmux.conf {{repo}}/.tmux.conf
-    difft ~/.gitconfig {{repo}}/.gitconfig
-    difft ~/.vimrc {{repo}}/.vimrc
-    difft ~/.zshrc {{repo}}/.zshrc
-    difft ~/.config/qmk/qmk.ini {{repo}}/qmk.ini
-    difft ~/.config/zellij/config.kdl {{repo}}/zellij.config.kdl
+    #!/usr/bin/env bash
+    rc=0
+    difft --exit-code ~/.bash_aliases {{repo}}/.bash_aliases || rc=1
+    difft --exit-code ~/{{env_file}} {{repo}}/{{env_file}} || rc=1
+    difft --exit-code ~/.psqlrc {{repo}}/.psqlrc || rc=1
+    difft --exit-code ~/.tmux.conf {{repo}}/.tmux.conf || rc=1
+    difft --exit-code ~/.gitconfig {{repo}}/.gitconfig || rc=1
+    difft --exit-code ~/.vimrc {{repo}}/.vimrc || rc=1
+    difft --exit-code ~/.zshrc {{repo}}/.zshrc || rc=1
+    difft --exit-code ~/.config/qmk/qmk.ini {{repo}}/qmk.ini || rc=1
+    difft --exit-code ~/.config/zellij/config.kdl {{repo}}/zellij.config.kdl || rc=1
+    exit $rc
 
-unlink:
+unlink: diff
     rm -f ~/.bash_aliases
     rm -f ~/.bazelrc
     rm -f ~/.linux_env

@@ -6,3 +6,11 @@
 	br = branch -vv --sort=committerdate
 	ci = commit
 	st = status
+[core]
+	pager = less
+[diff]
+	tool = difft
+[merge]
+	tool = mergiraf
+[init]
+	defaultBranch = main
