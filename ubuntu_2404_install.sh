@@ -1,3 +1,5 @@
+add-apt-repository ppa:mozillateam/ppa
+
 apt update
 apt upgrade -y
 
@@ -30,6 +32,9 @@ apt install -y vlc
 apt install -y fonts-firacode
 apt install -y fonts-powerline
 # Then set fira code as terminal font to render prompts and zellij ui with all the cool glyphs.
+
+# Install Firefox from deb, not snap, since snap slows down boot too much
+apt install -y firefox
 
 #------------------------------------------ Rust packages
 
