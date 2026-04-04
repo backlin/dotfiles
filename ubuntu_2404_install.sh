@@ -1,44 +1,50 @@
+# Install Firefox from deb, not snap, since snap slows down boot too much
 add-apt-repository ppa:mozillateam/ppa
 
-apt update
-apt upgrade -y
+# https://wezterm.org/install/linux.html#__tabbed_1_3
+curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+sudo chmod 644 /usr/share/keyrings/wezterm-fury.gpg
+
+sudo apt update
+sudo apt upgrade -y
 
 #------------------------------------------ Official packages
 
-apt install -y git
-apt install -y pre-commit
-apt install -y 7zip
-apt install -y curl
-apt install -y make
-apt install -y wl-clipboard
+sudo apt install -y git
+sudo apt install -y pre-commit
+sudo apt install -y 7zip
+sudo apt install -y curl
+sudo apt install -y make
+sudo apt install -y wl-clipboard
 
-apt install -y zsh
-apt install -y vim
-apt install -y tmux
-apt install -y ripgrep
-apt install -y zoxide
-apt install -y fd-find
-apt install -y fzf
-apt install -y eza # eza.rocks
+sudo apt install -y zsh
+sudo apt install -y vim
+sudo apt install -y tmux
+sudo apt install -y ripgrep
+sudo apt install -y zoxide
+sudo apt install -y fd-find
+sudo apt install -y fzf
+sudo apt install -y eza # eza.rocks
 
-apt install -y golang-go
-apt install -y sqlite3
-apt install -y postgresql
+sudo apt install -y golang-go
+sudo apt install -y sqlite3
+sudo apt install -y postgresql
 
-apt install -y libreoffice
-apt install -y gimp
-apt install -y sqlitebrowser
-apt install -y vlc
-apt install -y fonts-firacode
-apt install -y fonts-powerline
+sudo apt install -y libreoffice
+sudo apt install -y gimp
+sudo apt install -y sqlitebrowser
+sudo apt install -y vlc
+sudo apt install -y fonts-firacode
+sudo apt install -y fonts-powerline
 # Then set fira code as terminal font to render prompts and zellij ui with all the cool glyphs.
 
-# Install Firefox from deb, not snap, since snap slows down boot too much
-apt install -y firefox
+sudo apt install -y firefox
+sudo apt install -y wezterm
 
 #------------------------------------------ Rust packages
 
-apt install -y rustup
+sudo apt install -y rustup
 rustup default stable
 
 cargo install just
