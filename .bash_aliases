@@ -1,4 +1,4 @@
-REPO="$HOME/git/home"
+REPO="$HOME/backlin/git/dotfiles"
 
 alias gs='git status '
 alias ga='git add '
@@ -29,5 +29,3 @@ if [ $(which zoxide) ]; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
 
-alias mdm="make -C $HOME/git/ingest/ datamodel "
-alias dm=datamodel

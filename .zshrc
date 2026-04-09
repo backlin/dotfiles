@@ -121,14 +121,14 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 # Load system-specific configurations
 if [[ $(uname) == Darwin ]]; then
-  source $HOME/git/home/.mac_env
+  source $HOME/backlin/git/dotfiles/.mac_env
 fi
 if [[ $(uname) == Linux ]]; then
-  source $HOME/git/home/.linux_env
+  source $HOME/backlin/git/dotfiles/.linux_env
 fi
 
 # Load shared aliases
-source $HOME/git/home/.bash_aliases
+source $HOME/backlin/git/dotfiles/.bash_aliases
 
 if [ -f $HOME/.config/authzed ]; then
   source $HOME/.config/authzed

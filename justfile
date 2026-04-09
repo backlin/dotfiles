@@ -50,7 +50,7 @@ setup_vim:
     bash setup_vim.sh
 
 upload:
-    rsync -avz --delete * .* /home/admin/git/home NoFuss.io:/home/admin/git/home/
+    rsync -avz --delete * .* /home/admin/git/home NoFuss.io:/home/admin/backlin/git/dotfiles/
 
 deploy:
     sudo cp -r system/* /etc/systemd/system/

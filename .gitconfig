@@ -8,6 +8,7 @@
 	st = status
 [core]
 	pager = less
+	excludesfile = /Users/christofer/.gitignore_global
 [diff]
 	tool = difft
 [merge]
