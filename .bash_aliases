@@ -1,5 +1,3 @@
-REPO="$HOME/backlin/git/dotfiles"
-
 alias gs='git status '
 alias ga='git add '
 alias gb='git br -vv '
@@ -11,10 +9,10 @@ alias gcob='git checkout -b '
 alias gcom='git checkout master '
 alias gsh='git push'
 
-alias gll="$REPO/git-pull-prune.sh "
-alias gsl="$REPO/git-stash-pull.sh "
-alias gm="$REPO/git-merge-master.sh "
-alias gr="$REPO/git-rebase-master.sh "
+alias gll='git-pull-prune '
+alias gsl='git-stash-pull '
+alias gm='git-merge-master '
+alias gr='git-rebase-master '
 
 alias grhh='git reset --hard HEAD '
 alias grhh1='git reset --hard HEAD~1 '

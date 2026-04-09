@@ -16,6 +16,12 @@ link:
     ln -sf {{ repo }}/{{ zellij_config }} $HOME/.config/zellij/config.kdl
     mkdir -p ~/.config/helix
     ln -sf {{ repo }}/helix.config.toml $HOME/.config/helix/config.toml
+    mkdir -p ~/.local/bin
+    ln -sf {{ repo }}/git-pull-prune.sh  $HOME/.local/bin/git-pull-prune
+    ln -sf {{ repo }}/git-stash-pull.sh  $HOME/.local/bin/git-stash-pull
+    ln -sf {{ repo }}/git-merge-master.sh  $HOME/.local/bin/git-merge-master
+    ln -sf {{ repo }}/git-rebase-master.sh $HOME/.local/bin/git-rebase-master
+    ln -sf {{ repo }}/git-theirs.sh        $HOME/.local/bin/git-theirs
 
 diff:
     #!/usr/bin/env bash
@@ -43,6 +49,11 @@ unlink:
     rm -f ~/.zshrc
     rm -f ~/.config/qmk/qmk.ini
     rm -f ~/.config/zellij/config.kdl
+    rm -f ~/.local/bin/git-pull-prune
+    rm -f ~/.local/bin/git-stash-pull
+    rm -f ~/.local/bin/git-merge-master
+    rm -f ~/.local/bin/git-rebase-master
+    rm -f ~/.local/bin/git-theirs
 
 viridis:
     R -f viridis.R > viridis.csv
