@@ -109,26 +109,37 @@ export GOPATH=$(go env GOPATH)
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
-# pyenv configuration
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 
-# Poetry configuration
-export PATH="$HOME/.poetry/bin:$PATH"
+alias gs='git status '
+alias ga='git add '
+alias gb='git br -vv '
+alias gc='git commit '
+alias gd='git diff '
+alias gl='git log '
+alias gco='git checkout '
+alias gcob='git checkout -b '
+alias gcom='git checkout master '
+alias gsh='git push'
 
-# Load system-specific configurations
-if [[ $(uname) == Darwin ]]; then
-  source $HOME/backlin/git/dotfiles/.mac_env
-fi
-if [[ $(uname) == Linux ]]; then
-  source $HOME/backlin/git/dotfiles/.linux_env
+alias gll='git-pull-prune '
+alias gsl='git-stash-pull '
+alias gm='git-merge-master '
+alias gr='git-rebase-master '
+
+alias grhh='git reset --hard HEAD '
+alias grhh1='git reset --hard HEAD~1 '
+
+source $HOME/.zshrc_os
+
+# https://eza.rocks/
+if [ $(which eza) ]; then
+  alias ls='eza --git '
 fi
 
-# Load shared aliases
-source $HOME/backlin/git/dotfiles/.bash_aliases
+# https://github.com/ajeetdsouza/zoxide
+if [ $(which zoxide) ]; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
 
 if [ -f $HOME/.config/authzed ]; then
   source $HOME/.config/authzed
@@ -138,10 +149,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Uncomment to profile zsh startup time
-# Also uncomment the module load at the very top of this file
-# zprof
-
 # pnpm
 export PNPM_HOME="/home/christofer/.local/share/pnpm"
 case ":$PATH:" in
@@ -149,3 +156,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Uncomment to profile zsh startup time
+# Also uncomment the module load at the very top of this file
+# zprof

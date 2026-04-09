@@ -5,9 +5,6 @@ export PATH="/usr/local/bin:$PATH"
 # TeX Live (MacTeX distribution)
 export PATH="/Library/TeX/texbin:$PATH"
 
-# Python user site-packages
-export PATH="$HOME/Library/Python/3.8/lib/python/site-packages:$PATH"
-
 # macOS-specific applications
 export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 export PATH="/Applications/GoLand.app/Contents/MacOS:$PATH"
