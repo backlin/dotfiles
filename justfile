@@ -1,5 +1,6 @@
 repo := justfile_directory()
 env_file := if os() == "macos" { ".mac_env" } else { ".linux_env" }
+zellij_config := if os() == "macos" { "zellij.config.mac.kdl" } else { "zellij.config.linux.kdl" }
 
 link:
     ln -sf {{ repo }}/.bash_aliases  $HOME/.bash_aliases
@@ -12,7 +13,7 @@ link:
     mkdir -p ~/.config/qmk
     ln -sf {{ repo }}/qmk.ini           $HOME/.config/qmk/qmk.ini
     mkdir -p ~/.config/zellij
-    ln -sf {{ repo }}/zellij.config.kdl $HOME/.config/zellij/config.kdl
+    ln -sf {{ repo }}/{{ zellij_config }} $HOME/.config/zellij/config.kdl
     mkdir -p ~/.config/helix
     ln -sf {{ repo }}/helix.config.toml $HOME/.config/helix/config.toml
 
@@ -27,7 +28,7 @@ diff:
     difft --exit-code ~/.vimrc {{ repo }}/.vimrc || rc=1
     difft --exit-code ~/.zshrc {{ repo }}/.zshrc || rc=1
     difft --exit-code ~/.config/qmk/qmk.ini {{ repo }}/qmk.ini || rc=1
-    difft --exit-code ~/.config/zellij/config.kdl {{ repo }}/zellij.config.kdl || rc=1
+    difft --exit-code ~/.config/zellij/config.kdl {{ repo }}/{{ zellij_config }} || rc=1
     difft --exit-code ~/.config/helix/config.toml {{ repo }}/helix.config.toml || rc=1
     exit $rc
 
