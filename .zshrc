@@ -86,10 +86,10 @@ export LC_ALL=en_US.UTF-8
 # Preferred editor
 if [[ -n $SSH_CONNECTION ]]; then
   # Remote session
-  export EDITOR='vim'
+  export EDITOR='hx'
 else
   # Local session
-  export EDITOR='vim'
+  export EDITOR='hx'
 fi
 
 # Compilation flags
