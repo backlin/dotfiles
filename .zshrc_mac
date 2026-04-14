@@ -17,3 +17,8 @@ autoload -U +X bashcompinit && bashcompinit
 if [[ -f $(brew --prefix)/etc/bash_completion.d/az ]]; then
   source $(brew --prefix)/etc/bash_completion.d/az
 fi
+
+#---[ Aliases ]----------------------------------------------------------------
+
+alias y=" pbcopy "
+alias p=" pbpaste "

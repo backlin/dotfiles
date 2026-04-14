@@ -28,12 +28,10 @@ if [[ -d "home/linuxbrew" ]]; then
 fi
 
 
-#---[ Aliases ]-----------------------------------------------------------------
+#---[ Aliases ]----------------------------------------------------------------
 
 # https://askubuntu.com/a/525029
 alias trash=" gio trash "
-# https://superuser.com/a/939602, only supported in oh-my-zsh
-alias mkcd=take
 
 # sudo apt install wl-clipboard (wl = Wayland)
 # Not using xclip since Ubuntu is no longer running X11.

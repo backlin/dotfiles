@@ -92,17 +92,13 @@ else
   export EDITOR='hx'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+#---[ Aliases ]----------------------------------------------------------------
 
 # System-agnostic PATH additions
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-
-# Python configuration
-export PYTHONPATH="$PYTHONPATH:."
 
 # Go configuration
 export GOPATH=$(go env GOPATH)
@@ -128,6 +124,9 @@ alias gr='git-rebase-master '
 
 alias grhh='git reset --hard HEAD '
 alias grhh1='git reset --hard HEAD~1 '
+
+# https://superuser.com/a/939602, only supported in oh-my-zsh
+alias mkcd=take
 
 source $HOME/.zshrc_os
 
