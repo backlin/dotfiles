@@ -1,3 +1,6 @@
+# https://apple.stackexchange.com/a/250572
+ssh-add --apple-load-keychain -q
+
 # Homebrew paths (Apple Silicon and Intel)
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"

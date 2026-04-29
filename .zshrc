@@ -112,6 +112,7 @@ alias gb='git br -vv '
 alias gc='git commit '
 alias gd='git diff '
 alias gl='git log '
+alias gla='git log --all --graph --decorate --oneline '
 alias gco='git checkout '
 alias gcob='git checkout -b '
 alias gcom='git checkout master '
@@ -124,20 +125,19 @@ alias gr='git-rebase-master '
 
 alias grhh='git reset --hard HEAD '
 alias grhh1='git reset --hard HEAD~1 '
+ct() { # Clone + Take
+  local base="${1:?base URL required}"
+  local repo="${2:?repo name required}"
+  git clone "$base/$repo" && cd "$repo"
+}
 
-# https://superuser.com/a/939602, only supported in oh-my-zsh
-alias mkcd=take
+alias lt='ls -aTL2 '
 
 source $HOME/.zshrc_os
 
 # https://eza.rocks/
 if [ $(which eza) ]; then
   alias ls='eza --git '
-fi
-
-# https://github.com/ajeetdsouza/zoxide
-if [ $(which zoxide) ]; then
-  eval "$(zoxide init zsh --cmd cd)"
 fi
 
 if [ -f $HOME/.config/authzed ]; then
@@ -159,3 +159,8 @@ esac
 # Uncomment to profile zsh startup time
 # Also uncomment the module load at the very top of this file
 # zprof
+
+# https://github.com/ajeetdsouza/zoxide
+if [ $(which zoxide) ]; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
