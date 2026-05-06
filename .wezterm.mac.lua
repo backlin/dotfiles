@@ -2,7 +2,7 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.hide_tab_bar_if_only_one_tab = true
-config.color_scheme = 'One Dark (Gogh)'
+config.color_scheme = 'OneDark (base16)'
 
 -- Enable Kitty keyboard protocol so Zellij can receive Super modifier
 config.enable_kitty_keyboard = true
