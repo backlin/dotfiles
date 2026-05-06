@@ -117,6 +117,8 @@ alias gco='git checkout '
 alias gcob='git checkout -b '
 alias gcom='git checkout master '
 alias gsh='git push'
+gci() { git commit -am "$*"; }
+gcia() { git commit -a --amend -m "$*"; }
 
 alias gll='git-pull-prune '
 alias gsl='git-stash-pull '
@@ -129,6 +131,15 @@ ct() { # Clone + Take
   local base="${1:?base URL required}"
   local repo="${2:?repo name required}"
   git clone "$base/$repo" && cd "$repo"
+}
+mv.() {
+  local new="${1:?new name required}"
+  local old="${PWD:t}"
+  cd .. && mv "$old" "$new" && cd "$new"
+}
+rm.() {
+  local old="${PWD:t}"
+  cd .. && rm "$@" "$old"
 }
 
 alias lt='ls -aTL2 '
