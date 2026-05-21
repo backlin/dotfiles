@@ -110,13 +110,14 @@ alias gs='git status '
 alias ga='git add '
 alias gb='git br -vv '
 alias gc='git commit '
+alias gnit='git commit -am "nit" && git push '
 alias gd='git diff '
 alias gl='git log '
 alias gla='git log --all --graph --decorate --oneline '
 alias gco='git checkout '
 alias gcob='git checkout -b '
-alias gcom='git checkout master '
-alias gsh='git push'
+alias gcom='git checkout main '
+alias gsh='git push '
 gci() { git commit -am "$*"; }
 gcia() { git commit -a --amend -m "$*"; }
 
