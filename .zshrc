@@ -116,7 +116,7 @@ alias gl='git log '
 alias gla='git log --all --graph --decorate --oneline '
 alias gco='git checkout '
 alias gcob='git checkout -b '
-alias gcom='git checkout main '
+alias gmain='git checkout main && git-pull-prune '
 alias gsh='git push '
 gci() { git commit -am "$*"; }
 gcia() { git commit -a --amend -m "$*"; }
