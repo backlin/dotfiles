@@ -1,0 +1,16 @@
+// ~/.config/zellij/layouts/my-layout.kdl
+layout {
+    pane split_direction="vertical" {
+        pane size=25 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zellij-vertical-tabs.wasm" {
+                format "#[fg=muted]{index} {name}"
+                format_active "#[fg=accent]{index} {name}"
+                max_name_length 21
+            }
+        }
+        pane
+    }
+    pane size=1 borderless=true {
+        plugin location="zellij:status-bar"
+    }
+}

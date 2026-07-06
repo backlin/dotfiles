@@ -176,3 +176,11 @@ esac
 if [ $(which zoxide) ]; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
+
+# Rename zellij tab to "dir: running-app" (dir basename + foreground command)
+if [[ -n "$ZELLIJ" ]]; then
+  _zj_tab() { zellij action rename-tab "$(basename "$PWD")${1:+: $1}"; }
+  chpwd()  { _zj_tab; }                       # dir change -> just dir
+  precmd() { _zj_tab; }                        # command finished -> just dir
+  preexec() { _zj_tab "${1%% *}"; }            # command starts -> dir: appname
+fi

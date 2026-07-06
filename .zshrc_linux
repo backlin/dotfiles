@@ -23,7 +23,7 @@ if [[ -d "$HOME/google-cloud-sdk" ]]; then
   export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 fi
 
-if [[ -d "home/linuxbrew" ]]; then
+if [[ -d "/home/linuxbrew" ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
