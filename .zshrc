@@ -125,6 +125,7 @@ alias gll='git-pull-prune '
 alias gsl='git-stash-pull '
 alias gm='git-merge-master '
 alias gr='git-rebase-master '
+alias g-="git checkout - "
 
 alias grhh='git reset --hard HEAD '
 alias grhh1='git reset --hard HEAD~1 '
