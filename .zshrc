@@ -146,6 +146,18 @@ rm.() {
 
 alias lt='ls -aTL2 '
 
+claude-as() { # Run claude against the ~/.claude-<name> profile
+  local name="${1:?profile name required}"
+  local dir="$HOME/.claude-$name"
+  if [[ ! -d "$dir" ]]; then
+    echo "no such profile: $dir (create it with: just claude-profile $name)" >&2
+    return 1
+  fi
+  CLAUDE_CONFIG_DIR="$dir" claude "${@:2}"
+}
+alias claude-adage='claude '
+alias claude-aph='claude-as aph '
+
 source $HOME/.zshrc_os
 
 # https://eza.rocks/

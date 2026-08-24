@@ -79,3 +79,67 @@ deploy:
     sudo cp -r system/* /etc/systemd/system/
     sudo systemctl daemon-reload
     sudo systemctl restart ollama.service
+
+# Create ~/.claude-<name>, sharing all config with ~/.claude except auth
+claude-profile name:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    primary="$HOME/.claude"
+    profile="$HOME/.claude-{{ name }}"
+
+    if [[ "{{ name }}" == */* ]]; then
+        echo "error: profile name must not contain '/'" >&2
+        exit 1
+    fi
+    if [[ "$profile" == "$primary" ]]; then
+        echo "error: refusing to overwrite the primary profile" >&2
+        exit 1
+    fi
+    if [[ ! -d "$primary" ]]; then
+        echo "error: primary profile $primary does not exist" >&2
+        exit 1
+    fi
+
+    mkdir -p "$profile"
+
+    # Config that should be identical across profiles. Anything absent in the
+    # primary profile is skipped, so this list can grow ahead of reality.
+    shared=(
+        CLAUDE.md
+        agents
+        commands
+        hooks
+        output-styles
+        skills
+    )
+    for entry in "${shared[@]}"; do
+        src="$primary/$entry"
+        if [[ ! -e "$src" ]]; then
+            continue
+        fi
+        # When the primary entry is itself a symlink into a git repo, point at
+        # that repo directly rather than chaining through the primary profile.
+        if [[ -L "$src" ]]; then
+            src="$(readlink "$src")"
+        fi
+        ln -sfn "$src" "$profile/$entry"
+    done
+
+    # Plugin manifests store absolute installPath values under the primary
+    # profile's cache, so the whole directory has to be shared, not copied.
+    ln -sfn "$primary/plugins" "$profile/plugins"
+
+    # settings.json is seeded from the primary profile but never linked: each
+    # profile needs its own tool permissions and its own set of enabled
+    # plugins. Only seed it once, so a diverged profile survives a re-run.
+    if [[ ! -e "$profile/settings.json" ]]; then
+        cp "$primary/settings.json" "$profile/settings.json"
+        echo "seeded settings.json - edit it to scope this profile's access"
+    else
+        echo "kept existing settings.json"
+    fi
+
+    echo "profile ready: $profile"
+    echo "run it with:  claude-as {{ name }}"
+    echo "auth is separate - log in on first run"
