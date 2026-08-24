@@ -149,7 +149,7 @@ alias lt='ls -aTL2 '
 source $HOME/.zshrc_os
 
 # https://eza.rocks/
-if [ $(which eza) ]; then
+if (( $+commands[eza] )); then
   alias ls='eza --git '
 fi
 
@@ -174,8 +174,17 @@ esac
 # zprof
 
 # https://github.com/ajeetdsouza/zoxide
-if [ $(which zoxide) ]; then
+if (( $+commands[zoxide] )); then
   eval "$(zoxide init zsh --cmd cd)"
+  # zoxide's cd override leaks into non-interactive shells via Claude Code's
+  # shell snapshots, where fuzzy-matching cd is a footgun. Builtin cd there.
+  cd() {
+    if [[ -o interactive ]]; then
+      __zoxide_z "$@"
+    else
+      \builtin cd -- "$@"
+    fi
+  }
 fi
 
 # Rename zellij tab to "dir: running-app" (dir basename + foreground command)
