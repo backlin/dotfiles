@@ -146,6 +146,39 @@ rm.() {
 
 alias lt='ls -aTL2 '
 
+# System light/dark detection. Claude Code's "auto" theme queries the terminal
+# background with OSC 11, but zellij answers that query itself with a hardcoded
+# black, so inside zellij Claude always thinks the terminal is dark. Pass the
+# theme explicitly instead.
+system_appearance() { # Echo "dark" or "light", nothing if undetermined
+  case "$(uname)" in
+    Darwin)
+      if [[ -n "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" ]]; then
+        echo dark
+      else
+        echo light
+      fi
+      ;;
+    Linux)
+      if (( $+commands[gsettings] )); then
+        case "$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)" in
+          *dark*) echo dark ;;
+          *) echo light ;;
+        esac
+      fi
+      ;;
+  esac
+}
+
+claude() { # Start claude with the theme matching the current system appearance
+  local theme="$(system_appearance)"
+  if [[ -n "$theme" ]]; then
+    command claude --settings "{\"theme\": \"$theme\"}" "$@"
+  else
+    command claude "$@"
+  fi
+}
+
 claude-as() { # Run claude against the ~/.claude-<name> profile
   local name="${1:?profile name required}"
   local dir="$HOME/.claude-$name"
