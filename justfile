@@ -13,6 +13,8 @@ link:
 
     mkdir -p ~/.config/helix
     ln -sf {{ repo }}/helix.config.toml $HOME/.config/helix/config.toml
+    mkdir -p ~/.config/neru
+    ln -sf {{ repo }}/neru.config.toml $HOME/.config/neru/config.toml
     mkdir -p ~/.config/qmk
     ln -sf {{ repo }}/qmk.ini $HOME/.config/qmk/qmk.ini
     mkdir -p ~/.config/zellij/layouts
@@ -56,6 +58,7 @@ unlink:
     rm -f ~/.zshrc_os
 
     rm -f ~/.config/helix/config.toml
+    rm -f ~/.config/neru/config.toml
     rm -f ~/.config/qmk/qmk.ini
     rm -f ~/.config/zellij/config.kdl
     rm -f ~/.config/zellij/layouts/default.kdl
