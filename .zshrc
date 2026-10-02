@@ -129,6 +129,24 @@ alias g-="git checkout - "
 
 alias grhh='git reset --hard HEAD '
 alias grhh1='git reset --hard HEAD~1 '
+
+wtn() {
+    local new="${1:?new branch name required}"
+    git worktree add -b "$new" ".worktree/$new" && cd ".worktree/$new"
+}
+
+wte() {
+    local existing="${1:?existing branch name required}"
+    git worktree add ".worktree/$existing" "$existing" && cd ".worktree/$existing"
+}
+
+wtrm() {
+    local existing="${1:?existing branch name required}"
+    git worktree remove ".worktree/$existing"
+}
+
+alias wtls="git worktree list"
+
 ct() { # Clone + Take
   local base="${1:?base URL required}"
   local repo="${2:?repo name required}"
@@ -173,15 +191,17 @@ alias lt='ls -aTL2 '
 # Unless CLAUDE_CONFIG_DIR is set then claude will read settings
 # from both ~/.claude/ and ~/.claude.json, making it hard to
 # switch profiles.
-export CLAUDE_CONFIG_DIR="$HOME/.claude-aph"
+# export CLAUDE_CONFIG_DIR="$HOME/.claude-aph"
 alias claude-adage="CLAUDE_CONFIG_DIR=$HOME/.claude-adage claude "
 alias claude-aph="CLAUDE_CONFIG_DIR=$HOME/.claude-aph claude "
+alias default-claude-adage='ln -sfh ~/.claude-adage ~/.claude'
+alias default-claude-aph='ln -sfh ~/.claude-aph ~/.claude'
 
 source $HOME/.zshrc_os
 
 # https://eza.rocks/
 if (( $+commands[eza] )); then
-  alias ls='eza --git '
+  alias ls='eza '
 fi
 
 if [ -f $HOME/.config/authzed ]; then
@@ -218,10 +238,10 @@ if (( $+commands[zoxide] )); then
   }
 fi
 
-# Rename zellij tab to "dir: running-app" (dir basename + foreground command)
+# Rename zellij tab to "dir: running-app" (dir basename + optional command). Run manually: `zjt` or `zjt <name>`
 if [[ -n "$ZELLIJ" ]]; then
-  _zj_tab() { zellij action rename-tab "$(basename "$PWD")${1:+: $1}"; }
-  chpwd()  { _zj_tab; }                       # dir change -> just dir
-  precmd() { _zj_tab; }                        # command finished -> just dir
-  preexec() { _zj_tab "${1%% *}"; }            # command starts -> dir: appname
+  zjt() { zellij action rename-tab "$(basename "$PWD")${1:+: $1}"; }
+  alias zjp='zellij action rename-pane '
+
+  zjt
 fi
