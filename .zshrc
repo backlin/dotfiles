@@ -130,19 +130,34 @@ alias g-="git checkout - "
 alias grhh='git reset --hard HEAD '
 alias grhh1='git reset --hard HEAD~1 '
 
+# Main repo root, even when called from inside a worktree
+_wt_root() {
+    local common
+    common="$(git rev-parse --path-format=absolute --git-common-dir)" || return
+    echo "${common:h}"
+}
+
 wtn() {
     local new="${1:?new branch name required}"
-    git worktree add -b "$new" ".worktree/$new" && cd ".worktree/$new"
+    local root
+    root="$(_wt_root)" || return
+    local dir="$root/.worktree/$new"
+    git worktree add -b "$new" "$dir" && cd "$dir"
 }
 
 wte() {
     local existing="${1:?existing branch name required}"
-    git worktree add ".worktree/$existing" "$existing" && cd ".worktree/$existing"
+    local root
+    root="$(_wt_root)" || return
+    local dir="$root/.worktree/$existing"
+    git worktree add "$dir" "$existing" && cd "$dir"
 }
 
 wtrm() {
     local existing="${1:?existing branch name required}"
-    git worktree remove ".worktree/$existing"
+    local root
+    root="$(_wt_root)" || return
+    git worktree remove "$root/.worktree/$existing"
 }
 
 alias wtls="git worktree list"
