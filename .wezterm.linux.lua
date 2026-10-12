@@ -5,6 +5,11 @@ local config = wezterm.config_builder()
 
 config.hide_tab_bar_if_only_one_tab = true
 
+-- WezTerm 20240203 crashes on Wayland with scale 2: its client-side title bar
+-- gets an odd-width buffer, which the compositor rejects ("Buffer size must be
+-- an integer multiple of the buffer_scale"). Run under XWayland instead.
+config.enable_wayland = false
+
 local function scheme_for_appearance(appearance)
   if appearance:find 'Dark' then
     return 'One Dark (Gogh)'
