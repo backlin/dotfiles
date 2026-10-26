@@ -47,7 +47,7 @@ text = "#E8EEFF"
 "Primary+Shift+Space" = "hints"
 "Primary+Shift+G" = "grid"
 "Primary+Shift+C" = "recursive_grid"
-"Primary+Shift+S" = "scroll"
+"Primary+Shift+S" = "__disabled__"            # unbind default scroll hotkey
 
 # Macros — named action sequences, reused from any binding.
 # Written by hand, not recorded. $1, $2 ... are the call's arguments.
