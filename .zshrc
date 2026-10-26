@@ -60,6 +60,10 @@ zstyle ':omz:update' frequency 31
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Don't write commands prefixed by space into history, e.g. ` my-cli token set`
+# https://stackoverflow.com/a/8473153
+export HISTCONTROL=ignorespace
+
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # You can set one of the optional three formats:
@@ -137,12 +141,29 @@ _wt_root() {
     echo "${common:h}"
 }
 
+# Link worktree into ~/worktree as <repo>-<branch>
+wtln() {
+    local branch="${1:-$(git branch --show-current)}"
+    [[ -n $branch ]] || { echo "branch name required" >&2; return 1; }
+    local root
+    root="$(_wt_root)" || return
+    ln -sfn "$root/.worktree/$branch" "$HOME/worktree/${root:t}-${branch}"
+}
+
+wtlnrm() {
+    local branch="${1:-$(git branch --show-current)}"
+    [[ -n $branch ]] || { echo "branch name required" >&2; return 1; }
+    local root
+    root="$(_wt_root)" || return
+    rm -f "$HOME/worktree/${root:t}-${branch}"
+}
+
 wtn() {
     local new="${1:?new branch name required}"
     local root
     root="$(_wt_root)" || return
     local dir="$root/.worktree/$new"
-    git worktree add -b "$new" "$dir" && cd "$dir"
+    git worktree add -b "$new" "$dir" && cd "$dir" && [[ -d "$root/.venv" ]] && ln -sfn "$root/.venv" .venv && wtln "$new"
 }
 
 wte() {
@@ -150,13 +171,14 @@ wte() {
     local root
     root="$(_wt_root)" || return
     local dir="$root/.worktree/$existing"
-    git worktree add "$dir" "$existing" && cd "$dir"
+    git worktree add "$dir" "$existing" && cd "$dir" && [[ -d "$root/.venv" ]] && ln -sfn "$root/.venv" .venv && wtln "$existing"
 }
 
 wtrm() {
     local existing="${1:?existing branch name required}"
     local root
     root="$(_wt_root)" || return
+    wtlnrm "$existing"
     git worktree remove "$root/.worktree/$existing"
 }
 

@@ -2,6 +2,7 @@ repo := justfile_directory()
 os := if os() == "macos" { "mac" } else { "linux" }
 
 link:
+    mkdir $HOME/worktree
     ln -sf {{ repo }}/git/.gitconfig        $HOME/.gitconfig
     ln -sf {{ repo }}/git/.gitignore_global $HOME/.gitignore_global
     ln -sf {{ repo }}/.psqlrc           $HOME/.psqlrc
