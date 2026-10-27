@@ -163,7 +163,7 @@ wtn() {
     local root
     root="$(_wt_root)" || return
     local dir="$root/.worktree/$new"
-    git worktree add -b "$new" "$dir" && cd "$dir" && [[ -d "$root/.venv" ]] && ln -sfn "$root/.venv" .venv && wtln "$new"
+    git worktree add -b "$new" "$dir" && cd "$dir" && [[ -d "$root/.venv" ]] && cp -r "$root/.venv" . && wtln "$new"
 }
 
 wte() {
@@ -171,7 +171,7 @@ wte() {
     local root
     root="$(_wt_root)" || return
     local dir="$root/.worktree/$existing"
-    git worktree add "$dir" "$existing" && cd "$dir" && [[ -d "$root/.venv" ]] && ln -sfn "$root/.venv" .venv && wtln "$existing"
+    git worktree add "$dir" "$existing" && cd "$dir" && [[ -d "$root/.venv" ]] && cp -r "$root/.venv" . && wtln "$existing"
 }
 
 wtrm() {
