@@ -2,8 +2,6 @@
 # Also uncomment zprof at the very end of this file
 # zmodload zsh/zprof
 
-bindkey -v # Vim style keyboard bindings (default is Emacs style)
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -83,6 +81,10 @@ export HISTCONTROL=ignorespace
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+
+# Must come after oh-my-zsh, which forces emacs bindings
+bindkey -v # Vim style keyboard bindings
+export KEYTIMEOUT=1 # 10ms Esc delay instead of 400ms
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
