@@ -275,6 +275,18 @@ if (( $+commands[zoxide] )); then
   }
 fi
 
+
+# Auto-reload: before each prompt, re-source .zshrc if it changed since this shell loaded it
+zmodload -F zsh/stat b:zstat
+zstat -A _zshrc_mtime +mtime ~/.zshrc
+_zshrc_autoreload() {
+  local m
+  zstat -A m +mtime ~/.zshrc 2>/dev/null || return
+  [[ $m != $_zshrc_mtime ]] && echo "backlin/dotfiles: Auto-reloading ~/.zshrc" && source ~/.zshrc
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _zshrc_autoreload
+
 # Rename zellij tab to "dir: running-app" (dir basename + optional command). Run manually: `zjt` or `zjt <name>`
 if [[ -n "$ZELLIJ" ]]; then
   zjt() { zellij action rename-tab "$(basename "$PWD")${1:+: $1}"; }
