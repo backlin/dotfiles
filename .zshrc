@@ -86,6 +86,18 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v # Vim style keyboard bindings
 export KEYTIMEOUT=1 # 10ms Esc delay instead of 400ms
 
+# Cursor shape follows vi mode: block in normal mode, beam in insert mode
+function zle-keymap-select {
+  if [[ $KEYMAP == vicmd ]]; then
+    print -n '\e[2 q'
+  else
+    print -n '\e[6 q'
+  fi
+}
+zle -N zle-keymap-select
+function zle-line-init { print -n '\e[6 q' }
+zle -N zle-line-init
+
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
@@ -165,7 +177,7 @@ wtn() {
     local root
     root="$(_wt_root)" || return
     local dir="$root/.worktree/$new"
-    git worktree add -b "$new" "$dir" && cd "$dir" && [[ -d "$root/.venv" ]] && cp -r "$root/.venv" . && wtln "$new"
+    git worktree add -b "$new" "$dir" HEAD && cd "$dir" && [[ -d "$root/.venv" ]] && cp -r "$root/.venv" . && wtln "$new"
 }
 
 wte() {
